@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+
+Name=AlienFX-Aurora
+Exec=sh -c  "$HOME/.local/share/AlienFXAurora/alienfx-aurora"
+Icon=/home/FXUSER/.local/share/AlienFXAurora/AlienFXAuroraLogo.svg
+
+Comment="Program to control FX lights on Alienware Aurora Desktops"
+
+Categories=Utility;
+Keywords=alien;fx;aurora;
+StartupWMClass=org.gnome.AlienFXAurora
