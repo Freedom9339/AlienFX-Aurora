@@ -334,7 +334,7 @@ static void end_transaction(void) {
 
 static void btnTestZonesClicked(GtkButton *self, gpointer user_data) {
     AlienfxAuroraWindow *form = user_data;
-
+    (void)self;
     GtkWidget *window = gtk_window_new();
     gtk_window_set_title(GTK_WINDOW(window), "Test Zones");
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 50);
@@ -374,6 +374,7 @@ static void btnTestZonesClicked(GtkButton *self, gpointer user_data) {
 
 static void btnTestClicked(GtkButton *self, gpointer user_data) {
     AlienfxAuroraWindow *form = user_data;
+    (void)self;
     uint8_t from_n;
     uint8_t to_n;
     uint8_t start;
@@ -381,13 +382,13 @@ static void btnTestClicked(GtkButton *self, gpointer user_data) {
     const char *from = gtk_editable_get_text(GTK_EDITABLE(form->from));
     const char *to = gtk_editable_get_text(GTK_EDITABLE(form->to));
 
-    for (int i = 0; i < strlen(from); i++) {
+    for (int i = 0; i < (int)strlen(from); i++) {
         if (!isdigit(from[i])) {
             return;
         }
     }
 
-    for (int i = 0; i < strlen(to); i++) {
+    for (int i = 0; i < (int)strlen(to); i++) {
         if (!isdigit(to[i])) {
             return;
         }
