@@ -16,6 +16,11 @@
                 <property name="label">Apply</property>
               </object>
             </child>
+            <child>
+              <object class="GtkButton" id="btnTestZones">
+                <property name="label">Test Zones</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>

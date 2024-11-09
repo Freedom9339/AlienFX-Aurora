@@ -21,6 +21,8 @@
 #include "humanfx.h"
 
 #include "alienfx-aurora-window.h"
+
+#include <ctype.h>
 FILE *config_file;
 const char filename[] = ".afxaconfig";
 uint16_t breathe_time;
@@ -48,6 +50,11 @@ static void end_transaction(void);
 static void apply_option(GtkColorDialogButton *btn, GtkCheckButton *chkStatic,
                          GtkCheckButton *chkBreathe, GtkAdjustment *adjBrightness,
                          uint8_t *zone, size_t zone_size, bool skip);
+
+static void btnTestZonesClicked(GtkButton *self, gpointer user_data);
+
+static void btnTestClicked(GtkButton *self, gpointer user_data);
+
 
 struct _AlienfxAuroraWindow {
     AdwApplicationWindow parent_instance;
@@ -79,6 +86,10 @@ struct _AlienfxAuroraWindow {
     GtkAdjustment *adjSpectrumTime;
 
     GtkButton *btnApply;
+    GtkButton *btnTestZones;
+
+    GtkEntry *from;
+    GtkEntry *to;
 };
 
 G_DEFINE_FINAL_TYPE(AlienfxAuroraWindow, alienfx_aurora_window, ADW_TYPE_APPLICATION_WINDOW)
@@ -129,11 +140,13 @@ static void alienfx_aurora_window_class_init(AlienfxAuroraWindowClass *klass) {
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjSpectrumTime);
 
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnApply);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnTestZones);
 }
 
 static void alienfx_aurora_window_init(AlienfxAuroraWindow *self) {
     gtk_widget_init_template(GTK_WIDGET(self));
     g_signal_connect(self->btnApply, "clicked", G_CALLBACK(btnApplyClicked), self);
+    g_signal_connect(self->btnTestZones, "clicked", G_CALLBACK(btnTestZonesClicked), self);
     load_options(self);
 }
 
@@ -212,7 +225,6 @@ static void btnApplyClicked(GtkButton *self, gpointer user_data) {
     config_file = fopen(filename, "w");
     if (config_file == NULL) {
         g_error("Could not open config file %s, %s", filename, gtk_button_get_label(GTK_BUTTON(self)));
-        g_print("Error while opening file to write");
     }
 
     breathe_time = (uint16_t) gtk_adjustment_get_value(form->adjBreatheTime);
@@ -318,4 +330,83 @@ static void end_transaction(void) {
     send_animation_set_default(1);
     device_release();
     device_close();
+}
+
+static void btnTestZonesClicked(GtkButton *self, gpointer user_data) {
+    AlienfxAuroraWindow *form = user_data;
+
+    GtkWidget *window = gtk_window_new();
+    gtk_window_set_title(GTK_WINDOW(window), "Test Zones");
+    gtk_window_set_default_size(GTK_WINDOW(window), 400, 50);
+
+    GtkWidget *box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_box_set_homogeneous(GTK_BOX(box), true);
+    gtk_window_set_child(GTK_WINDOW(window), box);
+    gtk_widget_set_margin_start(box, 10);
+    gtk_widget_set_margin_end(box, 10);
+    gtk_widget_set_margin_top(box, 10);
+    gtk_widget_set_margin_bottom(box, 10);
+
+    GtkWidget *label = gtk_label_new("Zone Start");
+    gtk_box_append(GTK_BOX(box), label);
+
+    // Create an entry widget for user input
+    GtkWidget *from = gtk_entry_new();
+    gtk_box_append(GTK_BOX(box), from);
+    form->from = GTK_ENTRY(from);
+
+    GtkWidget *label2 = gtk_label_new("Zone End");
+    gtk_box_append(GTK_BOX(box), label2);
+
+    // Create an entry widget for user input
+    GtkWidget *to = gtk_entry_new();
+    gtk_box_append(GTK_BOX(box), to);
+    form->to = GTK_ENTRY(to);
+
+    GtkWidget *button = gtk_button_new_with_label("Test");
+    gtk_box_append(GTK_BOX(box), button);
+
+    g_signal_connect(button, "clicked", G_CALLBACK(btnTestClicked), form);
+
+
+    gtk_window_present(GTK_WINDOW(window));
+}
+
+static void btnTestClicked(GtkButton *self, gpointer user_data) {
+    AlienfxAuroraWindow *form = user_data;
+    uint8_t from_n;
+    uint8_t to_n;
+    uint8_t start;
+    uint8_t end;
+    const char *from = gtk_editable_get_text(GTK_EDITABLE(form->from));
+    const char *to = gtk_editable_get_text(GTK_EDITABLE(form->to));
+
+    for (int i = 0; i < strlen(from); i++) {
+        if (!isdigit(from[i])) {
+            return;
+        }
+    }
+
+    for (int i = 0; i < strlen(to); i++) {
+        if (!isdigit(to[i])) {
+            return;
+        }
+    }
+
+    from_n = (uint8_t) atoi(from);
+    to_n = (uint8_t) atoi(to);
+
+    if(from_n < to_n) {
+        start = from_n;
+        end = to_n;
+    } else {
+        start = to_n;
+        end = from_n;
+    }
+    start_transaction();
+    for (int i = start; i <= end; i++) {
+        send_zone_select(1, 1, i);
+        send_add_action(ACTION_COLOR, 1, 2, 0xFFFFFF);
+    }
+    end_transaction();
 }

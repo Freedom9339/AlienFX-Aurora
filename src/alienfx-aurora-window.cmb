@@ -83,7 +83,8 @@
 	(1,87,"GtkSpinButton",None,82,None,None,None,1,None,None),
 	(1,88,"GtkSpinButton",None,82,None,None,None,3,None,None),
 	(1,89,"GtkAdjustment","adjBreatheTime",87,None,None,None,0,None,None),
-	(1,90,"GtkAdjustment","adjSpectrumTime",88,None,None,None,0,None,None)
+	(1,90,"GtkAdjustment","adjSpectrumTime",88,None,None,None,0,None,None),
+	(1,91,"GtkButton","btnTestZones",3,None,None,None,1,None,None)
   </object>
   <object_property>
 	(1,1,"AdwApplicationWindow","content",None,0,None,None,None,2,None,None,None,None),
@@ -268,13 +269,15 @@
 	(1,90,"GtkAdjustment","page-increment","1000.0",None,None,None,None,None,None,None,None,None),
 	(1,90,"GtkAdjustment","step-increment","1000.0",None,None,None,None,None,None,None,None,None),
 	(1,90,"GtkAdjustment","upper","1000000.0",None,None,None,None,None,None,None,None,None),
-	(1,90,"GtkAdjustment","value","1000.0",None,None,None,None,None,None,None,None,None)
+	(1,90,"GtkAdjustment","value","1000.0",None,None,None,None,None,None,None,None,None),
+	(1,91,"GtkButton","label","Test Zones",None,None,None,None,None,None,None,None,None)
   </object_property>
   <object_data>
 	(1,21,"GtkWidget",2,2,None,1,None,None,None,None),
 	(1,2,"GtkWidget",2,2,None,1,None,None,None,None),
 	(1,15,"GtkWidget",2,2,None,1,None,None,None,None),
 	(1,1,"GtkWidget",2,2,None,1,None,None,None,None),
-	(1,6,"GtkWidget",2,2,None,1,None,None,None,None)
+	(1,6,"GtkWidget",2,2,None,1,None,None,None,None),
+	(1,6,"GtkWidget",2,4,None,3,None,None,None,None)
   </object_data>
 </cambalache-project>

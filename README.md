@@ -18,3 +18,6 @@ To install, just run
 This will install to ```$HOME/.local/share```
 
 To uninstall, just run ```uninstall.sh```
+
+# Testing Zones
+For computers using the same 187c:0550 controller, the zones might be different. Using the "Test Zones" button allows you to enter a range of zone ids. These IDs are unsigned integers. My computer, Aurora R13 zone Ids ranged from 1-75. If you manage to map your ID's, you can send them to me and I can add them as an option for other users.
