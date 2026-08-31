@@ -33,6 +33,10 @@ extern uint8_t OUTER_RING1[];
 extern size_t OUTER_RING1_SIZE;
 extern uint8_t OUTER_RING2[];
 extern size_t OUTER_RING2_SIZE;
+extern uint8_t CPU_COOLER_RING[];
+extern size_t CPU_COOLER_RING_SIZE;
+extern uint8_t CPU_COOLER_HEAD[];
+extern size_t CPU_COOLER_HEAD_SIZE;
 // Interface
 #define PREAMBLE 0x03
 #define ZONE_LEFT 0x00

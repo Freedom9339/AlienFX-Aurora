@@ -396,6 +396,130 @@
             </child>
             <child>
               <object class="GtkBox">
+                <property name="margin-end">10</property>
+                <property name="spacing">5</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="halign">start</property>
+                    <property name="label">CPU Cooler Ring</property>
+                    <property name="margin-start">10</property>
+                    <property name="width-chars">20</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkColorDialogButton" id="btnCoolerRing">
+                    <property name="dialog">
+                      <object class="GtkColorDialog"/>
+                    </property>
+                    <property name="name">CoolerRing</property>
+                    <property name="rgba">rgb(0,0,0)</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkCoolerRingStatic">
+                    <property name="active">True</property>
+                    <property name="group">
+                      <object class="GtkCheckButton" id="grpCoolerRing"/>
+                    </property>
+                    <property name="label">Static</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkCoolerRingBreathe">
+                    <property name="group">grpCoolerRing</property>
+                    <property name="label">Breathe</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkCoolerRingSpectrum">
+                    <property name="group">grpCoolerRing</property>
+                    <property name="label">Spectrum</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScale">
+                    <property name="adjustment">
+                      <object class="GtkAdjustment" id="adjCoolerRing">
+                        <property name="step-increment">1.0</property>
+                        <property name="upper">100.0</property>
+                        <property name="value">100.0</property>
+                      </object>
+                    </property>
+                    <property name="digits">0</property>
+                    <property name="draw-value">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="tooltip-text">Brightness</property>
+                    <property name="value-pos">left</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="margin-bottom">10</property>
+                <property name="margin-end">10</property>
+                <property name="spacing">5</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="halign">start</property>
+                    <property name="label">CPU Cooler Alien Head</property>
+                    <property name="margin-start">10</property>
+                    <property name="width-chars">20</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkColorDialogButton" id="btnCoolerHead">
+                    <property name="dialog">
+                      <object class="GtkColorDialog"/>
+                    </property>
+                    <property name="name">CoolerHead</property>
+                    <property name="rgba">rgb(0,0,0)</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkCoolerHeadStatic">
+                    <property name="active">True</property>
+                    <property name="group">
+                      <object class="GtkCheckButton" id="grpCoolerHead"/>
+                    </property>
+                    <property name="label">Static</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkCoolerHeadBreathe">
+                    <property name="group">grpCoolerHead</property>
+                    <property name="label">Breathe</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="chkCoolerHeadSpectrum">
+                    <property name="group">grpCoolerHead</property>
+                    <property name="label">Spectrum</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkScale">
+                    <property name="adjustment">
+                      <object class="GtkAdjustment" id="adjCoolerHead">
+                        <property name="step-increment">1.0</property>
+                        <property name="upper">100.0</property>
+                        <property name="value">100.0</property>
+                      </object>
+                    </property>
+                    <property name="digits">0</property>
+                    <property name="draw-value">True</property>
+                    <property name="hexpand">True</property>
+                    <property name="tooltip-text">Brightness</property>
+                    <property name="value-pos">left</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator"/>
+            </child>
+            <child>
+              <object class="GtkBox">
                 <property name="homogeneous">True</property>
                 <property name="margin-end">10</property>
                 <property name="margin-start">10</property>

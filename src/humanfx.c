@@ -110,6 +110,12 @@ uint8_t OUTER_RING2[] =
 };
 size_t OUTER_RING2_SIZE = sizeof(OUTER_RING2);
 
+uint8_t CPU_COOLER_RING[] = {0x4b};
+size_t CPU_COOLER_RING_SIZE = sizeof(CPU_COOLER_RING);
+
+uint8_t CPU_COOLER_HEAD[] = {0x4c};
+size_t CPU_COOLER_HEAD_SIZE = sizeof(CPU_COOLER_HEAD);
+
 // Logging
 static void log_fatal(const char *msg) {
     fprintf(stderr, "fatal: %s\n", msg);
@@ -358,7 +364,7 @@ void send_add_action(uint16_t action, uint16_t duration, uint16_t tempo, uint32_
                     (tempo >> 8) & 0xFF,
                     (tempo) & 0xFF,
                     (color >> 16) & 0xFF,
-                    (color >> 8 & 0xFF),
+                    (color >> 8) & 0xFF,
                     (color) & 0xFF,
                 }, 10);
 }

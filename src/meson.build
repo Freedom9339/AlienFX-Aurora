@@ -23,6 +23,9 @@ executable('alienfx-aurora', alienfx_aurora_sources,
 )
 
 install_data(sources : 'AlienFXAuroraLogo.svg', install_dir : get_option('prefix') / '.local/share/AlienFXAurora')
+install_data(sources : 'AlienFXAuroraLogo.svg',
+             rename : 'alienfx-aurora.svg',
+             install_dir : get_option('prefix') / '.local/share/icons/hicolor/scalable/apps')
 install_data(sources : 'AlienFX-Aurora.desktop', install_dir : get_option('prefix') / '.local/share/applications')
 
 

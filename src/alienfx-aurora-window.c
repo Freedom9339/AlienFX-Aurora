@@ -68,6 +68,8 @@ struct _AlienfxAuroraWindow {
     GtkColorDialogButton *btnTextLogo;
     GtkColorDialogButton *btnCase;
     GtkColorDialogButton *btnFan;
+    GtkColorDialogButton *btnCoolerRing;
+    GtkColorDialogButton *btnCoolerHead;
 
     GtkCheckButton *chkPowerStatic, *chkPowerBreathe, *chkPowerSpectrum;
     GtkCheckButton *chkInnerRingStatic, *chkInnerRingBreathe, *chkInnerRingSpectrum;
@@ -75,6 +77,8 @@ struct _AlienfxAuroraWindow {
     GtkCheckButton *chkLogoStatic, *chkLogoBreathe, *chkLogoSpectrum;
     GtkCheckButton *chkCaseStatic, *chkCaseBreathe, *chkCaseSpectrum;
     GtkCheckButton *chkFanStatic, *chkFanBreathe, *chkFanSpectrum;
+    GtkCheckButton *chkCoolerRingStatic, *chkCoolerRingBreathe, *chkCoolerRingSpectrum;
+    GtkCheckButton *chkCoolerHeadStatic, *chkCoolerHeadBreathe, *chkCoolerHeadSpectrum;
 
     GtkAdjustment *adjPower;
     GtkAdjustment *adjInner;
@@ -82,6 +86,8 @@ struct _AlienfxAuroraWindow {
     GtkAdjustment *adjLogo;
     GtkAdjustment *adjCase;
     GtkAdjustment *adjFan;
+    GtkAdjustment *adjCoolerRing;
+    GtkAdjustment *adjCoolerHead;
     GtkAdjustment *adjBreatheTime;
     GtkAdjustment *adjSpectrumTime;
 
@@ -105,6 +111,8 @@ static void alienfx_aurora_window_class_init(AlienfxAuroraWindowClass *klass) {
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnTextLogo);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnCase);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnFan);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnCoolerRing);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, btnCoolerHead);
 
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkPowerStatic);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkPowerBreathe);
@@ -130,12 +138,22 @@ static void alienfx_aurora_window_class_init(AlienfxAuroraWindowClass *klass) {
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkFanBreathe);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkFanSpectrum);
 
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkCoolerRingStatic);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkCoolerRingBreathe);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkCoolerRingSpectrum);
+
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkCoolerHeadStatic);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkCoolerHeadBreathe);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, chkCoolerHeadSpectrum);
+
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjPower);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjInner);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjOuter);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjLogo);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjCase);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjFan);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjCoolerRing);
+    gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjCoolerHead);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjBreatheTime);
     gtk_widget_class_bind_template_child(widget_class, AlienfxAuroraWindow, adjSpectrumTime);
 
@@ -180,6 +198,12 @@ static void load_options(AlienfxAuroraWindow *self) {
         } else if (strcmp(token, gtk_widget_get_name((GtkWidget *) self->btnFan)) == 0) {
             load_option(self->btnFan, strtok(NULL, "="), self->chkFanStatic, self->chkFanBreathe, self->chkFanSpectrum,
                         self->adjFan);
+        } else if (strcmp(token, gtk_widget_get_name((GtkWidget *) self->btnCoolerRing)) == 0) {
+            load_option(self->btnCoolerRing, strtok(NULL, "="), self->chkCoolerRingStatic, self->chkCoolerRingBreathe,
+                        self->chkCoolerRingSpectrum, self->adjCoolerRing);
+        } else if (strcmp(token, gtk_widget_get_name((GtkWidget *) self->btnCoolerHead)) == 0) {
+            load_option(self->btnCoolerHead, strtok(NULL, "="), self->chkCoolerHeadStatic, self->chkCoolerHeadBreathe,
+                        self->chkCoolerHeadSpectrum, self->adjCoolerHead);
         } else if (strcmp(token, "BreatheTime") == 0) {
             value = strtok(NULL, "=");
             gtk_adjustment_set_value(self->adjBreatheTime, atoi(value));
@@ -247,6 +271,10 @@ static void btnApplyClicked(GtkButton *self, gpointer user_data) {
                  CASE_LIGHT, CASE_LIGHT_SIZE, false);
     apply_option(form->btnFan, form->chkFanStatic, form->chkFanBreathe, form->adjFan,
                  INNER_FAN, INNER_FAN_SIZE, false);
+    apply_option(form->btnCoolerRing, form->chkCoolerRingStatic, form->chkCoolerRingBreathe, form->adjCoolerRing,
+                 CPU_COOLER_RING, CPU_COOLER_RING_SIZE, false);
+    apply_option(form->btnCoolerHead, form->chkCoolerHeadStatic, form->chkCoolerHeadBreathe, form->adjCoolerHead,
+                 CPU_COOLER_HEAD, CPU_COOLER_HEAD_SIZE, false);
     end_transaction();
 
     sprintf(buff, "BreatheTime=%d ", breathe_time);
