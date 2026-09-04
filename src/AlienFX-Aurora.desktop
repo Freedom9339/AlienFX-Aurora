@@ -3,7 +3,7 @@ Type=Application
 
 Name=AlienFX-Aurora
 Exec=sh -c  "$HOME/.local/share/AlienFXAurora/alienfx-aurora"
-Icon=/home/FXUSER/.local/share/AlienFXAurora/AlienFXAuroraLogo.svg
+Icon=alienfx-aurora
 
 Comment="Program to control FX lights on Alienware Aurora Desktops"
 
